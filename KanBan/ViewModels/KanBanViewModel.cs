@@ -74,6 +74,10 @@ namespace KanBan
             {
                 //Get the newly created Column's informations:
                 KanBanColumn newColumn = (KanBanColumn)cw.DataContext;
+                if(_kanBanControl.ColumnHeaderTemplate != null)
+                {
+                    newColumn.HeaderTemplate = _kanBanControl.ColumnHeaderTemplate;
+                }
                 //Add the newly created Column to the columns of the KanBanControl and force a refresh
                 var columns = _kanBanControl.Columns;
                 _kanBanControl.Columns = null;

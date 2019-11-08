@@ -104,8 +104,6 @@ namespace KanBan
             }
         }
 
-        
-
 
         public DataTemplate ColumnHeaderTemplate //should this be plural? (ColumnsHeaderTemplate)
         {
@@ -119,7 +117,7 @@ namespace KanBan
 
         private static void ColumnHeaderTemplate_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            //todo: refresh
         }
 
         private void KanBanControl_ColumnsChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

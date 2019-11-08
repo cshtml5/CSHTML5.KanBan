@@ -16,7 +16,7 @@
                 </StackPanel>
             </ContentControl>
             <ContentControl Style="{StaticResource MaterialDesign_CardBody_Style}">
-                <local:KanBanControl x:Name="MyKanBanControl" Style="{StaticResource KanBanControlStyle}"  ItemTemplate="{StaticResource DefaultItemDataTemplate}" ColumnMemberPath="StatusInSalesCycle">
+                <local:KanBanControl x:Name="MyKanBanControl" Style="{StaticResource KanBanControlStyle}"  ItemTemplate="{StaticResource DefaultItemDataTemplate}" ColumnHeaderTemplate="{StaticResource DefaultHeaderDataTemplate}" ColumnMemberPath="StatusInSalesCycle">
                     <local:KanBanControl.Columns>
                         <local:KanBanColumn Header="Status one" Id="STATUS_ONE" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
                         <local:KanBanColumn Header="Status two" Id="STATUS_TWO" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>

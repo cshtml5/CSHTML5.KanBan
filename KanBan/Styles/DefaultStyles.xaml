@@ -127,7 +127,7 @@
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
                          Grid.Column="1"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                         Margin="5"/>
+                         Margin="5" MinWidth="100"/>
                                     <!--The Id of the Column-->
                                     <TextBlock Text="Id" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"
                            Grid.Row="1"/>
@@ -135,7 +135,7 @@
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
                          Grid.Row="1" Grid.Column="1"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                         Margin="5"/>
+                         Margin="5" MinWidth="100"/>
                                 </Grid>
                             </ContentControl>
                             <ContentControl Style="{StaticResource MaterialDesign_CardFooter_Style}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right">
