@@ -7,27 +7,25 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <StackPanel Orientation="Horizontal">
-                            <ItemsControl ItemsSource="{Binding Columns}" ItemTemplate="{StaticResource ColumnDataTemplate}">
-                                <ItemsControl.ItemsPanel>
-                                    <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
-                                </ItemsControl.ItemsPanel>
-                            </ItemsControl>
-                            <Button Style="{StaticResource MaterialDesign_RoundButton_Style}"
-                                    Margin="10,14,10,10" Width="30" Height="30" VerticalAlignment="Top"
-                                    Command="{Binding ShowAddColumnChildWindow_Command}"
-                                    Foreground="LimeGreen">
-                                <Path Data="M 9,0 L 11,0 11,9 20,9 20,11 11,11 11,20 9,20 9,11 0,11 0,9 9,9Z"
-                                        Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=ContentPresenter}}" 
-                                        VerticalAlignment="Center"
-                                        Width="20"
-                                        Height="20"/>
-                            </Button>
-                        </StackPanel>
-                    </ScrollViewer>
+                    <StackPanel Orientation="Horizontal">
+                        <ItemsControl ItemsSource="{Binding Columns}" ItemTemplate="{StaticResource ColumnDataTemplate}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <Button Style="{StaticResource MaterialDesign_RoundButton_Style}"
+                                Margin="10,14,10,10" Width="30" Height="30" VerticalAlignment="Top"
+                                Command="{Binding ShowAddColumnChildWindow_Command}"
+                                Foreground="LimeGreen">
+                            <Path Data="M 9,0 L 11,0 11,9 20,9 20,11 11,11 11,20 9,20 9,11 0,11 0,9 9,9Z"
+                                    Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=ContentPresenter}}" 
+                                    VerticalAlignment="Center"
+                                    Width="20"
+                                    Height="20"/>
+                        </Button>
+                    </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -35,7 +33,7 @@
 
     <DataTemplate x:Key="ColumnDataTemplate">
         <StackPanel>
-            <ContentControl ContentTemplate="{Binding HeaderTemplate}" Content="{Binding}" Margin="3,3,3,10"/>
+            <ContentControl ContentTemplate="{Binding HeaderTemplate}" Content="{Binding}" Margin="3,3,3,20"/>
             <ItemsControlDragDropTarget x:Name="PART_PanelDragDropTarget" AllowDrop="True" MinHeight="150">
                 <!--ItemDragStarting="PanelDragDropTarget_ItemDragStarting" ItemDragCompleted="PanelDragDropTarget_ItemDragCompleted">-->
                 <ItemsControl ItemsSource="{Binding Items}" ItemTemplate="{Binding ItemTemplate}">
@@ -55,7 +53,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="{Binding ColumnDefinition.Header}" FontSize="18" Foreground="Gray" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"/>
+            <TextBlock Text="{Binding ColumnDefinition.Header}" FontSize="16" FontWeight="Bold" Foreground="#FF2F2F2F" Background="White" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Width="120"/>
             <Button Content="..."
                     Command="{Binding OpenContextMenuColumnModification_Command}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
                     Style="{StaticResource MaterialDesign_RoundButton_Style}"
@@ -64,10 +62,10 @@
     </DataTemplate>
 
     <DataTemplate x:Key="DefaultItemDataTemplate">
-        <ContentControl Width="200" Margin="5" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="#FFD7D7D7">
+        <ContentControl Width="140" Margin="10,5,10,5" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="#FFD7D7D7" Padding="0,0,0,5">
             <StackPanel Orientation="Vertical">
                 <ContentControl Margin="0,0,3,5" Padding="0" Background="White" BorderThickness="0">
-                    <Grid Width="200" Height="40">
+                    <Grid Width="140" Height="40">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="3*"/>
@@ -109,9 +107,11 @@
                         <Grid x:Name="Overlay" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0" Background="{TemplateBinding OverlayBrush}" Opacity="{TemplateBinding OverlayOpacity}" />
                         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-
+                            <ContentControl Style="{StaticResource MaterialDesign_CardHeader_Style}">
+                                <TextBlock Text="Column"/>
+                            </ContentControl>
                             <ContentControl Style="{StaticResource MaterialDesign_CardBody_Style}">
-                                <Grid>
+                                <Grid Margin="10,0,10,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
@@ -122,20 +122,20 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
                                     <!--The header of the Column-->
-                                    <TextBlock Text="Header" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"/>
+                                    <TextBlock Text="HEADER:" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"/>
                                     <TextBox Text="{Binding Header, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
                          Grid.Column="1"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                         Margin="5" MinWidth="100"/>
+                         Margin="10,5,5,5" Width="200"/>
                                     <!--The Id of the Column-->
-                                    <TextBlock Text="Id" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"
+                                    <TextBlock Text="ID:" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"
                            Grid.Row="1"/>
                                     <TextBox Text="{Binding Id, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
                          Grid.Row="1" Grid.Column="1"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                         Margin="5" MinWidth="100"/>
+                         Margin="10,5,5,5" MinWidth="200"/>
                                 </Grid>
                             </ContentControl>
                             <ContentControl Style="{StaticResource MaterialDesign_CardFooter_Style}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right">

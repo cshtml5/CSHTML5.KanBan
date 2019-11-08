@@ -10,10 +10,10 @@
         <ContentControl Style="{StaticResource MaterialDesign_CardBody_Style}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -21,14 +21,14 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!--The Company name-->
-                <TextBlock Text="COMPANY NAME" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"/>
+                <TextBlock Text="COMPANY NAME:" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"/>
                 <TextBox Text="{Binding CompanyName, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
                          Grid.Column="1"
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                          Margin="5"/>
                 <!--The ZenDesk ticket Id-->
-                <TextBlock Text="ZENDESK TICKET" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"
+                <TextBlock Text="ZENDESK TICKET:" TextWrapping="Wrap" TextAlignment="Right" FontSize="14" Foreground="Gray" VerticalAlignment="Center"
                            Grid.Column="2"/>
                 <TextBox Text="{Binding ZenDeskTicketId, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
@@ -36,7 +36,7 @@
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                          Margin="5"/> <!--todo: Add a validation to check whether it is an int-->
                 <!--The Primary contact-->
-                <TextBlock Text="PRIMARY CONTACT" TextWrapping="Wrap" TextAlignment="Right" FontSize="12" Foreground="Gray" VerticalAlignment="Center"
+                <TextBlock Text="PRIMARY CONTACT:" TextWrapping="Wrap" TextAlignment="Right" FontSize="12" Foreground="Gray" VerticalAlignment="Center"
                            Grid.Row="1"/>
                 <TextBox Text="{Binding PrimaryContact, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
@@ -44,7 +44,7 @@
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                          Margin="5"/>
                 <!--The status in sales cycle-->
-                <TextBlock Text="STATUS IN SALES CYCLE" TextWrapping="Wrap" TextAlignment="Right" FontSize="12" Foreground="Gray" VerticalAlignment="Center"
+                <TextBlock Text="STATUS IN SALES CYCLE:" TextWrapping="Wrap" TextAlignment="Right" FontSize="12" Foreground="Gray" VerticalAlignment="Center"
                            Grid.Row="1" Grid.Column="2"/>
                 <TextBox Text="{Binding StatusInSalesCycle, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesign_TextBox_Style}"
@@ -52,7 +52,7 @@
                          HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                          Margin="5"/>
                 <!--The Comments-->
-                <TextBlock Text="COMMENTS" TextWrapping="Wrap" TextAlignment="Right" FontSize="12" Foreground="Gray"
+                <TextBlock Text="COMMENTS:" TextWrapping="Wrap" TextAlignment="Right" FontSize="12" Foreground="Gray"
                            Grid.Row="2"/>
                 <TextBox Text="{Binding Comments, Mode=TwoWay}"
                          Style="{StaticResource MaterialDesign_TextBox_Style}"

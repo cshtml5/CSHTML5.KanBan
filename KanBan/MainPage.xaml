@@ -7,25 +7,42 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ContentControl Style="{StaticResource MaterialDesign_Card_Style}" Width="300" Margin="10" VerticalAlignment="Top">
-        <StackPanel Orientation="Vertical">
-            <ContentControl Style="{StaticResource MaterialDesign_CardHeader_Style}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Contract Sales Pipeline" VerticalAlignment="Center"/>
-                    <Button Content="Create" Click="ButtonCreateItem_Click" Style="{StaticResource MaterialDesign_ColoredButton_Style}" VerticalAlignment="Center" Margin="10,0,0,0" Background="LimeGreen"/>
-                </StackPanel>
-            </ContentControl>
-            <ContentControl Style="{StaticResource MaterialDesign_CardBody_Style}">
-                <local:KanBanControl x:Name="MyKanBanControl" Style="{StaticResource KanBanControlStyle}"  ItemTemplate="{StaticResource DefaultItemDataTemplate}" ColumnHeaderTemplate="{StaticResource DefaultHeaderDataTemplate}" ColumnMemberPath="StatusInSalesCycle">
-                    <local:KanBanControl.Columns>
-                        <local:KanBanColumn Header="Status one" Id="STATUS_ONE" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
-                        <local:KanBanColumn Header="Status two" Id="STATUS_TWO" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
-                        <local:KanBanColumn Header="Status three" Id="STATUS_THREE" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
-                        <local:KanBanColumn Header="Status four" Id="STATUS_FOUR" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
-
-                    </local:KanBanControl.Columns>
-                </local:KanBanControl>
-            </ContentControl>
-        </StackPanel>
-    </ContentControl>
+    <Grid Background="#FFF2F2F2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="White">
+            <Border.Effect>
+                <DropShadowEffect Color="Gray" Opacity="0.4" BlurRadius="6" Direction="-30" ShadowDepth="0"/>
+            </Border.Effect>
+            <TextBlock Text="CRM demo" Margin="25,20,20,20" FontSize="24" FontWeight="Bold" FontStyle="Italic"/>
+        </Border>
+        <ContentControl Grid.Row="1" Style="{StaticResource MaterialDesign_Card_Style}" Margin="30" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ContentControl Grid.Row="0" Style="{StaticResource MaterialDesign_CardHeader_Style}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Contract Sales Pipeline" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <Button Content="Create" Click="ButtonCreateItem_Click" Style="{StaticResource MaterialDesign_ColoredButton_Style}" VerticalAlignment="Center" Margin="40,0,0,0" Background="LimeGreen"/>
+                    </StackPanel>
+                </ContentControl>
+                <ContentControl Grid.Row="1" Style="{StaticResource MaterialDesign_CardBody_Style}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0">
+                    <ScrollViewer Padding="20" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+                        <local:KanBanControl x:Name="MyKanBanControl" Style="{StaticResource KanBanControlStyle}"  ItemTemplate="{StaticResource DefaultItemDataTemplate}" ColumnHeaderTemplate="{StaticResource DefaultHeaderDataTemplate}" ColumnMemberPath="StatusInSalesCycle">
+                            <local:KanBanControl.Columns>
+                                <local:KanBanColumn Header="LEAD" Id="LEAD" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
+                                <local:KanBanColumn Header="PROPOSAL" Id="PROPOSAL" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
+                                <local:KanBanColumn Header="NEGOCIATION" Id="NEGOCIATION" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
+                                <local:KanBanColumn Header="CLOSED WON" Id="CLOSED_WON" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
+                            </local:KanBanControl.Columns>
+                        </local:KanBanControl>
+                    </ScrollViewer>
+                </ContentControl>
+            </Grid>
+        </ContentControl>
+    </Grid>
 </Page>
