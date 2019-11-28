@@ -3,6 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:KanBan">
 
+    <BooleanToVisibilityConverter x:Name="BooleanToVisibilityConverter"/>
+
     <Style x:Key="KanBanControlStyle" TargetType="local:KanBanControl">
         <Setter Property="Template">
             <Setter.Value>
@@ -34,9 +36,14 @@
     <DataTemplate x:Key="ColumnDataTemplate">
         <StackPanel>
             <ContentControl ContentTemplate="{Binding HeaderTemplate}" Content="{Binding}" Margin="3,3,3,20"/>
-            <ItemsControlDragDropTarget x:Name="PART_PanelDragDropTarget" AllowDrop="True" MinHeight="150">
+            <ItemsControlDragDropTarget x:Name="PART_PanelDragDropTarget" AllowDrop="True" MinHeight="150" xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=CSHTML5">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Drop">
+                        <i:InvokeCommandAction DataContext="{Binding ElementName=PART_PanelDragDropTarget, Path=DataContext}" Command="{Binding Path=ItemDragCompleted_Command, Mode=OneWay}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <!--ItemDragStarting="PanelDragDropTarget_ItemDragStarting" ItemDragCompleted="PanelDragDropTarget_ItemDragCompleted">-->
-                <ItemsControl ItemsSource="{Binding Items}" ItemTemplate="{Binding ItemTemplate}">
+                <ItemsControl ItemsSource="{Binding Items}" ItemTemplate="{Binding ItemTemplate}" Margin="0,0,0,30">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel/>
@@ -44,6 +51,10 @@
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>
             </ItemsControlDragDropTarget>
+            <Button Content="Show more items..." Style="{StaticResource MaterialDesign_Button_Style}"
+                    FontSize="14" Margin="0,5,0,0" Padding="6" HorizontalAlignment="Center" Foreground="LimeGreen"
+                    Visibility="{Binding DisplayShowMoreButton, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Command="{Binding Path=ShowMore_Command, Mode=OneWay}"/>
         </StackPanel>
     </DataTemplate>
 
@@ -57,6 +68,7 @@
             <Button Content="..."
                     Command="{Binding OpenContextMenuColumnModification_Command}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
                     Style="{StaticResource MaterialDesign_RoundButton_Style}"
+                    Visibility="{Binding ShowColumnEditionButton, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Height="30" Width="30" Foreground="LimeGreen" Grid.Column="1" VerticalAlignment="Center"/>
         </Grid>
     </DataTemplate>
@@ -84,6 +96,11 @@
                                    Grid.Column="1"/>
                         <TextBlock Foreground="Gray" Text="{Binding Item.PrimaryContact}" TextWrapping="NoWrap" FontSize="12"
                                    Grid.Column="1" Grid.Row="1"/>
+                        <!--Button to edit the item-->
+                        <!--<Button Content="..."
+                    Command="{Binding ThrowItemClickedEvent_Command}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
+                    Style="{StaticResource MaterialDesign_RoundButton_Style}"
+                    Height="30" Width="30" Foreground="LimeGreen" Grid.Column="1" VerticalAlignment="Center"/>-->
                     </Grid>
                 </ContentControl>
                 <ContentControl Padding="0,1">

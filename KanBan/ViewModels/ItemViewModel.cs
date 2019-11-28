@@ -23,17 +23,21 @@ namespace KanBan
             set { _item = value; OnPropertyChanged("Item"); }
         }
 
-
         public object ItemColumnId
         {
             get { return (object)GetValue(ItemColumnIdProperty); }
-            set { SetValue(ItemColumnIdProperty, value); }
+            set { SetLocalValue(ItemColumnIdProperty, value); } //note: calling SetLocalValue instead of SetValue because we never want to remove the Binding.
         }
         public static readonly DependencyProperty ItemColumnIdProperty =
             DependencyProperty.Register("ItemColumnId", typeof(object), typeof(ItemViewModel), new PropertyMetadata());
 
-
-
+        public int ItemOrder
+        {
+            get { return (int)GetValue(ItemOrderProperty); }
+            set { SetLocalValue(ItemOrderProperty, value); } //note: calling SetLocalValue instead of SetValue because we never want to remove the Binding.
+        }
+        public static readonly DependencyProperty ItemOrderProperty =
+            DependencyProperty.Register("ItemOrder", typeof(int), typeof(ItemViewModel), new PropertyMetadata());
 
         void OnPropertyChanged(string propertyName)
         {

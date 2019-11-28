@@ -127,17 +127,26 @@ namespace KanBan
 
         void HandleColumnsOrItemsSourceChanged()
         {
-            //todo: make a different one for when we activate the smooth mode.
-            IEnumerable<KanBanColumn> columns = (IEnumerable<KanBanColumn>)Columns;
-            if (columns != null)
+            if (Columns != null)
             {
+                //todo: make a different one for when we activate the smooth mode.
+                List<KanBanColumn> columns = (List<KanBanColumn>)(IEnumerable<KanBanColumn>)Columns.ToList(); //calling ToList so we do not modify the original list.
+            
+                // Add the "Unclassified" Column:
+                KanBanColumn unclassifiedColumn = new KanBanColumn()
+                {
+                    Header = "Unclassified",
+                    HeaderTemplate = ColumnHeaderTemplate
+                };
+                columns.Add(unclassifiedColumn);
+
+                // Create a ViewModel for each Column:
                 ObservableCollection<ColumnViewModel> columnViewModels = new ObservableCollection<ColumnViewModel>();
                 foreach (KanBanColumn column in columns)
                 {
                     column._kanBanControl = this;
                     columnViewModels.Add(new ColumnViewModel(column, ItemTemplate));
                 }
-                //todo: add a column for unclassified elements
 
                 _kanBanViewModel.Columns = null;
                 _kanBanViewModel.Columns = columnViewModels;
@@ -150,27 +159,42 @@ namespace KanBan
             Dictionary<object, ColumnViewModel> quickColumnsFromId = new Dictionary<object, ColumnViewModel>();
             Dictionary<object, IEnumerable<ItemViewModel>> listFromId = new Dictionary<object, IEnumerable<ItemViewModel>>();
             ObservableCollection<ItemViewModel> remainingItems = new ObservableCollection<ItemViewModel>();
+            ColumnViewModel unclassifiedColumn = null;
             foreach (ColumnViewModel column in columns)
             {
-                column.Items.Clear();
-                quickColumnsFromId.Add(column.ColumnDefinition.Id, column);
-                listFromId.Add(column.ColumnDefinition.Id, new ObservableCollection<ItemViewModel>());
+                column.UnalteredItemsCollection.Clear();
+                if (column.ColumnDefinition.Id != null)
+                {
+                    quickColumnsFromId.Add(column.ColumnDefinition.Id, column);
+                    listFromId.Add(column.ColumnDefinition.Id, new ObservableCollection<ItemViewModel>());
+                }
+                else
+                {
+                    unclassifiedColumn = column;
+                    unclassifiedColumn.IsUnclassifiedColumn = true;
+                }
             }
             if (ItemsSource != null)
             {
                 foreach (Object item in ItemsSource)
                 {
+                    //Get the id from the item and add a Binding to it so we can update it when necessary:
                     object id;
-                    //todo: follow the ColumnMemberPath on the item, then add the item to the corresponding columnViewModel
-                    //...
                     ItemViewModel itemViewModel = new ItemViewModel(item);
-                    Binding binding = new Binding(ColumnMemberPath); //for now, we consider that the ColumnMemberPath is directly accessible
+                    Binding binding = new Binding(ColumnMemberPath);
                     binding.Source = item;
-                    binding.Mode = BindingMode.TwoWay; //todo: see if we want this, it will allow us to easily change the column via the ItemViewModel.
+                    binding.Mode = BindingMode.TwoWay;
                     itemViewModel.SetBinding(ItemViewModel.ItemColumnIdProperty, binding);
                     id = itemViewModel.ItemColumnId;
                     //todo: handle the case where the Binding is broken.
 
+                    //Add a binging to get the ItemOrder:
+                    Binding orderBinding = new Binding(OrderMemberPath);
+                    orderBinding.Source = item;
+                    orderBinding.Mode = BindingMode.TwoWay;
+                    itemViewModel.SetBinding(ItemViewModel.ItemOrderProperty, orderBinding);
+
+                    //Add the item to the list for the corresponding id:
                     if (id != null && listFromId.ContainsKey(id))
                     {
                         ((ObservableCollection<ItemViewModel>)listFromId[id]).Add(itemViewModel);
@@ -183,7 +207,13 @@ namespace KanBan
 
                 foreach (object id in listFromId.Keys)
                 {
-                    quickColumnsFromId[id].Items = (ObservableCollection<ItemViewModel>)listFromId[id];
+                    quickColumnsFromId[id].UnalteredItemsCollection = (ObservableCollection<ItemViewModel>)listFromId[id];
+                }
+
+                if (unclassifiedColumn != null)
+                {
+                    //we should always enter this "if"
+                    unclassifiedColumn.UnalteredItemsCollection = remainingItems;
                 }
             }
         }
@@ -205,7 +235,7 @@ namespace KanBan
         /// <summary>
         /// The number of cards that will be displayed at once, and the number of cards that will be added when clicking on the "Show more..." button.
         /// </summary>
-        public int PageSize { get; set; } //Number of cards, not an actual size.
+        public int PageSize { get; set; } = 20; //Number of cards, not an actual size.
 
 
         //props:

@@ -32,7 +32,12 @@
                 </ContentControl>
                 <ContentControl Grid.Row="1" Style="{StaticResource MaterialDesign_CardBody_Style}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0">
                     <ScrollViewer Padding="20" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
-                        <local:KanBanControl x:Name="MyKanBanControl" Style="{StaticResource KanBanControlStyle}"  ItemTemplate="{StaticResource DefaultItemDataTemplate}" ColumnHeaderTemplate="{StaticResource DefaultHeaderDataTemplate}" ColumnMemberPath="StatusInSalesCycle">
+                        <local:KanBanControl x:Name="MyKanBanControl"
+                                             Style="{StaticResource KanBanControlStyle}"
+                                             ItemTemplate="{StaticResource DefaultItemDataTemplate}"
+                                             ColumnHeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"
+                                             ColumnMemberPath="StatusInSalesCycle" OrderMemberPath="Order"
+                                             CanUserCreateModifyAndDeleteColumns="True" CanUserReorderColumns="True">
                             <local:KanBanControl.Columns>
                                 <local:KanBanColumn Header="LEAD" Id="LEAD" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
                                 <local:KanBanColumn Header="PROPOSAL" Id="PROPOSAL" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
