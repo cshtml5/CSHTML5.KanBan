@@ -9,7 +9,7 @@
 
     <Page.Resources>
         <DataTemplate x:Key="ItemDataTemplate">
-            <ContentControl Width="140" Margin="10,5,10,5" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="#FFD7D7D7" Padding="0,0,0,5">
+            <ContentControl Width="140" Margin="10,5,10,5" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="#FFD7D7D7" Padding="0,0,0,5" Background="White">
                 <StackPanel Orientation="Vertical">
                     <ContentControl Margin="0,0,3,5" Padding="0" Background="White" BorderThickness="0">
                         <Grid Width="140" Height="40">
@@ -37,12 +37,32 @@
                         <TextBlock Foreground="Gray" Text="{Binding Item.Comments}" TextWrapping="Wrap" FontSize="12"/>
                     </ContentControl>
                     <!--Button to edit the item-->
-                    <Button Content="Edit"
-                                    Command="{Binding ItemClicked_Command}"
-                                    Style="{StaticResource MaterialDesign_ColoredButton_Style}"
-                                    Padding="3,2" FontSize="14"
-                                    Background="LimeGreen"
-                                    HorizontalAlignment="Right"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button
+                                    Command="{Binding ItemClicked_Command}" CommandParameter="EDIT"
+                                    Style="{StaticResource MaterialDesign_Button_Style_NoDropShadow}"
+                                    Padding="3,2" Margin="0,2,2,0" FontSize="14"
+                                    Background="Transparent"
+                                    Foreground="#FFB2B2B2"
+                                    HorizontalAlignment="Right">
+                                <Path Data="M1.867051,22.668933L9.3319602,30.132003 0,31.998993z M18.662943,5.8707967L26.128829,13.335851 11.199011,28.266969 3.7330038,20.800907z M25.196997,0C25.605364,-6.895516E-08,26.013352,0.15525171,26.324872,0.46575543L31.532841,5.6748109C32.155762,6.297802,32.155762,7.3078194,31.532841,7.9318176L27.994782,11.470847 20.53085,4.0047846 24.066832,0.46575543C24.379879,0.15525171,24.788628,-6.895516E-08,25.196997,0z"
+                                      Stretch="Uniform" Width="16" Height="16" Margin="0,0,0,0"
+                                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                                      RenderTransformOrigin="0.5,0.5"/>
+                        </Button>
+                        <Button
+                                    Command="{Binding ItemClicked_Command}" CommandParameter="DELETE"
+                                    Style="{StaticResource MaterialDesign_Button_Style_NoDropShadow}"
+                                    Padding="3,2" Margin="0,2,0,0" FontSize="14"
+                                    Background="Transparent"
+                                    Foreground="#FFB2B2B2"
+                                    HorizontalAlignment="Right">
+                                <Path Data="M17.000013,13.799999L17.000013,29 20.699968,29 20.699968,13.799999z M7.3999692,13.799999L7.3999692,29 11.099984,29 11.099984,13.799999z M2.0000014,11.200001L26.099997,11.200001 26.099997,32 2.0000014,32z M8.0000068,0L20.099993,0 20.099993,3.9000015 28.099999,3.9000015 28.099999,8 0,8 0,3.9000015 8.0000068,3.9000015z"
+                                      Stretch="Uniform" Width="16" Height="16" Margin="0,0,0,0"
+                                      Fill="{Binding Path=Foreground, RelativeSource={RelativeSource AncestorType=ContentPresenter}}"
+                                      RenderTransformOrigin="0.5,0.5"/>
+                        </Button>
+                    </StackPanel>
                 </StackPanel>
             </ContentControl>
         </DataTemplate>

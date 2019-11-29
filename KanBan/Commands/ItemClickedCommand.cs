@@ -25,7 +25,7 @@ namespace KanBan
         public void Execute(object parameter)
         {
             KanBanControl kanBanControl = _item._kanBanControl;
-            kanBanControl.OnItemClicked(_item);
+            kanBanControl.OnItemClicked(_item, parameter);
         }
     }
 }

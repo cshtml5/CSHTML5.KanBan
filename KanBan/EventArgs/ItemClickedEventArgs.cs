@@ -8,10 +8,12 @@ namespace KanBan
 {
     public class ItemClickedEventArgs : EventArgs
     {
-        internal ItemClickedEventArgs(object source)
+        internal ItemClickedEventArgs(object source, object parameter = null)
         {
             Source = source;
+            Parameter = parameter;
         }
         public object Source { get; private set; }
+        public object Parameter { get; private set; }
     }
 }

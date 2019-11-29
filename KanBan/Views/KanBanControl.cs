@@ -258,11 +258,11 @@ namespace KanBan
         /// </summary>
         public event EventHandler<ItemClickedEventArgs> ItemClicked;
 
-        internal void OnItemClicked(ItemViewModel itemViewModel)
+        internal void OnItemClicked(ItemViewModel itemViewModel, object parameter = null)
         {
             if(ItemClicked != null)
             {
-                ItemClicked(this, new ItemClickedEventArgs(itemViewModel.Item));
+                ItemClicked(this, new ItemClickedEventArgs(itemViewModel.Item, parameter));
             }
         }
 

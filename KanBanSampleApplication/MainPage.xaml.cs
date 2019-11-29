@@ -93,9 +93,18 @@ namespace KanBanSampleApplication
         private void KanBan_ItemClicked(object sender, ItemClickedEventArgs e)
         {
             var childWindow = new CreateEditItemChildWindow();
-            childWindow.DataContext = ((ContractSalesItem)e.Source).Clone(); //Note: we create a clone in case the user clicks on the cancel button.
-            childWindow.Closed += ChildWindowEditItem_Closed;
-            childWindow.Show();
+            var parameter = e.Parameter;
+            if (parameter == "EDIT")
+            {
+                childWindow.DataContext = ((ContractSalesItem)e.Source).Clone(); //Note: we create a clone in case the user clicks on the cancel button.
+                childWindow.Closed += ChildWindowEditItem_Closed;
+                childWindow.Show();
+            }
+            else if(parameter == "DELETE")
+            {
+                _contractSalesitems.Remove(((ContractSalesItem)e.Source));
+                MyKanBanControl.Refresh();
+            }
         }
 
         private void ChildWindowEditItem_Closed(object sender, EventArgs e)
