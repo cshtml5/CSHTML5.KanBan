@@ -37,12 +37,20 @@
                         <TextBlock Foreground="Gray" Text="{Binding Item.Comments}" TextWrapping="Wrap" FontSize="12"/>
                     </ContentControl>
                     <!--Button to edit the item-->
-                    <Button Content="Edit"
-                                    Command="{Binding ItemClicked_Command}"
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Edit"
+                                    Command="{Binding ItemClicked_Command}" CommandParameter="EDIT"
                                     Style="{StaticResource MaterialDesign_ColoredButton_Style}"
-                                    Padding="3,2" FontSize="14"
+                                    Padding="3,2" Margin="0,2,2,0" FontSize="14"
                                     Background="LimeGreen"
                                     HorizontalAlignment="Right"/>
+                        <Button Content="Delete"
+                                    Command="{Binding ItemClicked_Command}" CommandParameter="DELETE"
+                                    Style="{StaticResource MaterialDesign_ColoredButton_Style}"
+                                    Padding="3,2" Margin="0,2,0,0" FontSize="14"
+                                    Background="LimeGreen"
+                                    HorizontalAlignment="Right"/>
+                    </StackPanel>
                 </StackPanel>
             </ContentControl>
         </DataTemplate>
