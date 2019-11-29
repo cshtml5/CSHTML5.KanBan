@@ -5,7 +5,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace KanBan
+namespace KanBanSampleApplication
 {
     public sealed partial class App : Application
     {

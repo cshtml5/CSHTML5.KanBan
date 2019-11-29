@@ -6,7 +6,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace KanBan
+namespace KanBanSampleApplication
 {
     public partial class MainPage : Page
     {
@@ -23,20 +23,20 @@ namespace KanBan
             this.InitializeComponent();
 
             //                                              company name,   primary contact,             zdTicket,      status,       order    comment
-            _contractSalesitems.Add(new ContractSalesItem("MikeRoweSoft",    "Mike Rowe",                        1,      PROPOSAL,     5,  "Would like to be allowed to use this name for their company but aren't"));
-            _contractSalesitems.Add(new ContractSalesItem("Pidiboup",        "This one",                         12,     CLOSED_WON,   3,  "Pretty cool company name"));
-            _contractSalesitems.Add(new ContractSalesItem("AyoYayA",         "A serious one",                    2,      PROPOSAL,     1));
-            _contractSalesitems.Add(new ContractSalesItem("Apple",           "One that does more, costs less",   5,      LEAD,         2,  "Considers costing more while doing less, thus becoming a luxury product"));
-            _contractSalesitems.Add(new ContractSalesItem("Lorem Ipsum TM",  "A plain ol' contact",              3,      PROPOSAL,     6,  "Dolor sit amet etc."));
-            _contractSalesitems.Add(new ContractSalesItem("CorpyCorp",       "The best one",                     1239,   LEAD,         9,  "Do not forget to be \"corporate\""));
-            _contractSalesitems.Add(new ContractSalesItem("LimitedLTD",      "Confidential",                     7,      PROPOSAL,     8,  "You wish you knew"));
-            _contractSalesitems.Add(new ContractSalesItem("SCP Foundation",  "REDACTED",                         8,      PROPOSAL,     7,  "You do not want to know"));
-            _contractSalesitems.Add(new ContractSalesItem("Charmander",      "Spicy",                            4,      PROPOSAL,     4,  "Always on fire"));
-            _contractSalesitems.Add(new ContractSalesItem("Koji Kondo",      "Musical",                          6,      LEAD,         10, "Gives an identity to games"));
-            _contractSalesitems.Add(new ContractSalesItem("Some movie",      "Some actor",                       10,     CLOSED_WON,   11, "Some plot twist"));
-            _contractSalesitems.Add(new ContractSalesItem("Anarchists",      "None",                             11,     LEAD,         12, "They don't know what they are doing so how would we?"));
-            _contractSalesitems.Add(new ContractSalesItem("To be continued", "A future one",                     13,     LEAD,         13, "The anticipation is killing me!!!"));
-            _contractSalesitems.Add(new ContractSalesItem("I don't know",    "Some guy",                         133,    UNCLASSIFIED, 19, "This should only appear with the unclassified column"));
+            _contractSalesitems.Add(new ContractSalesItem("MikeRoweSoft", "Mike Rowe", 1, PROPOSAL, 5, "Would like to be allowed to use this name for their company but aren't"));
+            _contractSalesitems.Add(new ContractSalesItem("Pidiboup", "This one", 12, CLOSED_WON, 3, "Pretty cool company name"));
+            _contractSalesitems.Add(new ContractSalesItem("AyoYayA", "A serious one", 2, PROPOSAL, 1));
+            _contractSalesitems.Add(new ContractSalesItem("Apple", "One that does more, costs less", 5, LEAD, 2, "Considers costing more while doing less, thus becoming a luxury product"));
+            _contractSalesitems.Add(new ContractSalesItem("Lorem Ipsum TM", "A plain ol' contact", 3, PROPOSAL, 6, "Dolor sit amet etc."));
+            _contractSalesitems.Add(new ContractSalesItem("CorpyCorp", "The best one", 1239, LEAD, 9, "Do not forget to be \"corporate\""));
+            _contractSalesitems.Add(new ContractSalesItem("LimitedLTD", "Confidential", 7, PROPOSAL, 8, "You wish you knew"));
+            _contractSalesitems.Add(new ContractSalesItem("SCP Foundation", "REDACTED", 8, PROPOSAL, 7, "You do not want to know"));
+            _contractSalesitems.Add(new ContractSalesItem("Charmander", "Spicy", 4, PROPOSAL, 4, "Always on fire"));
+            _contractSalesitems.Add(new ContractSalesItem("Koji Kondo", "Musical", 6, LEAD, 10, "Gives an identity to games"));
+            _contractSalesitems.Add(new ContractSalesItem("Some movie", "Some actor", 10, CLOSED_WON, 11, "Some plot twist"));
+            _contractSalesitems.Add(new ContractSalesItem("Anarchists", "None", 11, LEAD, 12, "They don't know what they are doing so how would we?"));
+            _contractSalesitems.Add(new ContractSalesItem("To be continued", "A future one", 13, LEAD, 13, "The anticipation is killing me!!!"));
+            _contractSalesitems.Add(new ContractSalesItem("I don't know", "Some guy", 133, UNCLASSIFIED, 19, "This should only appear with the unclassified column"));
 
             MyKanBanControl.ItemsSource = _contractSalesitems;
         }
@@ -76,7 +76,7 @@ namespace KanBan
         private void ChildWindowCreateItem_Closed(object sender, EventArgs e)
         {
             ContractSalesItem item = ((ChildWindow)sender).DataContext as ContractSalesItem;
-            if(item != null)
+            if (item != null)
             {
                 _contractSalesitems.Add(item);
                 MyKanBanControl.ItemsSource = null;

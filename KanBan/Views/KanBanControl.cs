@@ -20,6 +20,11 @@ namespace KanBan
             Columns = new Collection<KanBanColumn>();
             _kanBanViewModel = new KanBanViewModel(this);
             DataContext = _kanBanViewModel;
+            Style = Application.Current.Resources.ContainsKey("KanBanControlStyle") ? (Style)Application.Current.Resources["KanBanControlStyle"] : null;
+            ItemTemplate = Application.Current.Resources.ContainsKey("DefaultItemDataTemplate") ? (DataTemplate)Application.Current.Resources["DefaultItemDataTemplate"] : null;
+            ColumnHeaderTemplate = Application.Current.Resources.ContainsKey("DefaultHeaderDataTemplate") ? (DataTemplate)Application.Current.Resources["DefaultHeaderDataTemplate"] : null;
+            //ItemTemplate = DefaultItemDataTemplate
+            //ColumnHeaderTemplate = "{StaticResource DefaultHeaderDataTemplate}"
         }
 
 

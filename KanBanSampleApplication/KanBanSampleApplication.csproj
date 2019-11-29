@@ -4,17 +4,21 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B37153F-2354-4717-A690-5B50B6E234B1}</ProjectGuid>
+    <ProjectGuid>{83580B4B-4CE4-426B-BD7F-6EC757A35401}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KanBan</RootNamespace>
-    <AssemblyName>KanBan</AssemblyName>
+    <RootNamespace>KanBanSampleApplication</RootNamespace>
+    <AssemblyName>KanBanSampleApplication</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsCSharpXamlForHtml5>true</IsCSharpXamlForHtml5>
-    <CSharpXamlForHtml5OutputType>Library</CSharpXamlForHtml5OutputType>
+    <CSharpXamlForHtml5OutputType>Application</CSharpXamlForHtml5OutputType>
     <IsCshtml5>true</IsCshtml5>
-    <Cshtml5OutputType>Library</Cshtml5OutputType>
+    <Cshtml5OutputType>Application</Cshtml5OutputType>
+    <StartAction>Program</StartAction>
+    <StartProgram>
+    </StartProgram>
+    <StartArguments>"KanBanSampleApplication.dll"</StartArguments>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -38,53 +42,40 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\ItemDropCommand.cs" />
-    <Compile Include="Commands\OpenContextMenuColumnModificationCommand.cs" />
-    <Compile Include="Commands\ShowMoreCommand.cs" />
-    <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Styles\Material_Design\AccentColorConverter.cs" />
-    <Compile Include="Styles\Material_Design\DoubleToCornerRadiusConverter.cs" />
-    <Compile Include="Styles\Material_Design\TextToPlaceholderTextVisibilityConverter.cs" />
-    <Compile Include="ViewModels\ColumnViewModel.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\KanBanViewModel.cs" />
-    <Compile Include="ViewModels\MoveColumnLeftCommand.cs" />
-    <Compile Include="Views\EditKanBanColumnChildWindow.cs" />
-    <Compile Include="Views\KanBanColumn.cs" />
-    <Compile Include="Views\KanBanControl.cs" />
+    <Compile Include="SampleElements\CreateEditItemChildWindow.xaml.cs">
+      <DependentUpon>CreateEditItemChildWindow.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Styles\DefaultStyles.xaml">
+    <Content Include="App.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SampleElements\CreateEditItemChildWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Styles\Material_Design\MaterialDesign_Button_Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Material_Design\MaterialDesign_Card_Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Material_Design\MaterialDesign_ChildWindow_Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Material_Design\MaterialDesign_CommonResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Material_Design\MaterialDesign_ContextMenu_Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Styles\Material_Design\MaterialDesign_TextBox_Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <ProjectReference Include="..\KanBan\KanBan.csproj">
+      <Project>{5b37153f-2354-4717-a690-5b50b6e234b1}</Project>
+      <Name>KanBan</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Bridge, Version=17.9.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -104,7 +95,6 @@
     <None Include="bridge.json" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="..\packages\CSHTML5.2.0.0-alpha50-070\build\CSHTML5.targets" Condition="Exists('..\packages\CSHTML5.2.0.0-alpha50-070\build\CSHTML5.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
