@@ -9,7 +9,7 @@
 
     <Page.Resources>
         <DataTemplate x:Key="ItemDataTemplate">
-            <ContentControl Width="140" Margin="10,5,10,5" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="#FFD7D7D7" Padding="0,0,0,5">
+            <ContentControl Width="140" Margin="10,5,10,5" VerticalAlignment="Top" BorderThickness="0,0,0,1" BorderBrush="#FFD7D7D7" Padding="0,0,0,5" Background="White">
                 <StackPanel Orientation="Vertical">
                     <ContentControl Margin="0,0,3,5" Padding="0" Background="White" BorderThickness="0">
                         <Grid Width="140" Height="40">
