@@ -38,10 +38,12 @@
     <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Commands\ItemClickedCommand.cs" />
     <Compile Include="Commands\ItemDropCommand.cs" />
     <Compile Include="Commands\OpenContextMenuColumnModificationCommand.cs" />
     <Compile Include="Commands\ShowMoreCommand.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="EventArgs\ItemClickedEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Styles\Material_Design\AccentColorConverter.cs" />
     <Compile Include="Styles\Material_Design\DoubleToCornerRadiusConverter.cs" />

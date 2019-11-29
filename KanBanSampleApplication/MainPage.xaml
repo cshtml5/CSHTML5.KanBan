@@ -31,16 +31,18 @@
                                    Grid.Column="1"/>
                             <TextBlock Foreground="Gray" Text="{Binding Item.PrimaryContact}" TextWrapping="NoWrap" FontSize="12"
                                    Grid.Column="1" Grid.Row="1"/>
-                            <!--Button to edit the item-->
-                            <!--<Button Content="..."
-                    Command="{Binding ThrowItemClickedEvent_Command}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"
-                    Style="{StaticResource MaterialDesign_RoundButton_Style}"
-                    Height="30" Width="30" Foreground="LimeGreen" Grid.Column="1" VerticalAlignment="Center"/>-->
                         </Grid>
                     </ContentControl>
                     <ContentControl Padding="0,1">
                         <TextBlock Foreground="Gray" Text="{Binding Item.Comments}" TextWrapping="Wrap" FontSize="12"/>
                     </ContentControl>
+                    <!--Button to edit the item-->
+                    <Button Content="Edit"
+                                    Command="{Binding ItemClicked_Command}"
+                                    Style="{StaticResource MaterialDesign_ColoredButton_Style}"
+                                    Padding="3,2" FontSize="14"
+                                    Background="LimeGreen"
+                                    HorizontalAlignment="Right"/>
                 </StackPanel>
             </ContentControl>
         </DataTemplate>
@@ -73,8 +75,9 @@
                     <ScrollViewer Padding="20" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                         <kanBan:KanBanControl x:Name="MyKanBanControl"
                                               ItemTemplate="{StaticResource ItemDataTemplate}"
-                                             ColumnMemberPath="StatusInSalesCycle" OrderMemberPath="Order"
-                                             CanUserCreateModifyAndDeleteColumns="True" CanUserReorderColumns="True">
+                                              ColumnMemberPath="StatusInSalesCycle" OrderMemberPath="Order"
+                                              CanUserCreateModifyAndDeleteColumns="True" CanUserReorderColumns="True"
+                                              ItemClicked="KanBan_ItemClicked">
                             <!--Style="{StaticResource KanBanControlStyle}"-->
                             <!--ColumnHeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"-->
 

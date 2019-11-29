@@ -1,4 +1,5 @@
-﻿using KanBan.SampleElements;
+﻿using KanBan;
+using KanBan.SampleElements;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,14 +76,48 @@ namespace KanBanSampleApplication
 
         private void ChildWindowCreateItem_Closed(object sender, EventArgs e)
         {
-            ContractSalesItem item = ((ChildWindow)sender).DataContext as ContractSalesItem;
-            if (item != null)
+            ChildWindow childWindow = ((ChildWindow)sender);
+            if (childWindow.DialogResult == true)
             {
-                _contractSalesitems.Add(item);
-                MyKanBanControl.ItemsSource = null;
-                MyKanBanControl.ItemsSource = _contractSalesitems;
+                ContractSalesItem item = childWindow.DataContext as ContractSalesItem;
+                if (item != null)
+                {
+                    _contractSalesitems.Add(item);
+                    MyKanBanControl.ItemsSource = null;
+                    MyKanBanControl.ItemsSource = _contractSalesitems;
+                }
             }
 
+        }
+
+        private void KanBan_ItemClicked(object sender, ItemClickedEventArgs e)
+        {
+            var childWindow = new CreateEditItemChildWindow();
+            childWindow.DataContext = ((ContractSalesItem)e.Source).Clone(); //Note: we create a clone in case the user clicks on the cancel button.
+            childWindow.Closed += ChildWindowEditItem_Closed;
+            childWindow.Show();
+        }
+
+        private void ChildWindowEditItem_Closed(object sender, EventArgs e)
+        {
+            ChildWindow childWindow = ((ChildWindow)sender);
+            if (childWindow.DialogResult == true)
+            {
+                ContractSalesItem item = childWindow.DataContext as ContractSalesItem;
+                if (item != null && item.CloneOf != null) //CloneOf should never be null but we never know.
+                {
+                    //we apply the changes that were applied to the clone to the original:
+                    ContractSalesItem original = item.CloneOf;
+                    original.CompanyName = item.CompanyName;
+                    original.PrimaryContact = item.PrimaryContact;
+                    original.ZenDeskTicketId = item.ZenDeskTicketId;
+                    original.StatusInSalesCycle = item.StatusInSalesCycle;
+                    original.Order = item.Order;
+                    original.Comments = item.Comments;
+
+                    MyKanBanControl.Refresh();
+                }
+            }
         }
     }
 
@@ -106,5 +141,15 @@ namespace KanBanSampleApplication
         public string Comments { get; set; }
         public string StatusInSalesCycle { get; set; }
         public int Order { get; set; }
+
+
+        //Note: This property is only set when we called the method Clone. It will allow us to get the original back.
+        //      We created it so we would have a way to apply the changes on the original item after showing the CreateEditItemChildWindow to edit an existing item.
+        public ContractSalesItem CloneOf { get; private set; } = null;
+
+        public ContractSalesItem Clone()
+        {
+            return new ContractSalesItem(CompanyName, PrimaryContact, ZenDeskTicketId, StatusInSalesCycle, Order, Comments) { CloneOf = this };
+        }
     }
 }

@@ -10,10 +10,12 @@ namespace KanBan
 {
     public class ItemViewModel : DependencyObject, INotifyPropertyChanged
     {
-
-        public ItemViewModel(object item)
+        internal KanBanControl _kanBanControl;
+        public ItemViewModel(object item, KanBanControl kanBanControl)
         {
             Item = item;
+            _kanBanControl = kanBanControl;
+            ItemClicked_Command = new ItemClickedCommand(this);
         }
 
         private object _item;
@@ -47,5 +49,7 @@ namespace KanBan
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public ItemClickedCommand ItemClicked_Command = null;
     }
 }

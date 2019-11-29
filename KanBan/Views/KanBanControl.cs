@@ -159,6 +159,13 @@ namespace KanBan
             } //todo: else put everything in an "UNCLASSIFIED" column
         }
 
+        public void Refresh()
+        {
+            var items = ItemsSource;
+            ItemsSource = null;
+            ItemsSource = items;
+        }
+
         void SetItemsInViewModelColumns(ObservableCollection<ColumnViewModel> columns)
         {
             Dictionary<object, ColumnViewModel> quickColumnsFromId = new Dictionary<object, ColumnViewModel>();
@@ -185,7 +192,7 @@ namespace KanBan
                 {
                     //Get the id from the item and add a Binding to it so we can update it when necessary:
                     object id;
-                    ItemViewModel itemViewModel = new ItemViewModel(item);
+                    ItemViewModel itemViewModel = new ItemViewModel(item, this);
                     Binding binding = new Binding(ColumnMemberPath);
                     binding.Source = item;
                     binding.Mode = BindingMode.TwoWay;
@@ -241,6 +248,28 @@ namespace KanBan
         /// The number of cards that will be displayed at once, and the number of cards that will be added when clicking on the "Show more..." button.
         /// </summary>
         public int PageSize { get; set; } = 20; //Number of cards, not an actual size.
+
+        #region events
+
+        #region ItemClicked event
+
+        /// <summary>
+        /// An event raised when an item is clicked.
+        /// </summary>
+        public event EventHandler<ItemClickedEventArgs> ItemClicked;
+
+        internal void OnItemClicked(ItemViewModel itemViewModel)
+        {
+            if(ItemClicked != null)
+            {
+                ItemClicked(this, new ItemClickedEventArgs(itemViewModel.Item));
+            }
+        }
+
+
+        #endregion
+
+        #endregion
 
 
         //props:
