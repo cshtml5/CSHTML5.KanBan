@@ -105,8 +105,8 @@
                                 <kanBan:KanBanColumn Header="LEAD" Id="LEAD" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
                                 <kanBan:KanBanColumn Header="PROPOSAL" Id="PROPOSAL" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
                                 <kanBan:KanBanColumn Header="NEGOCIATION" Id="NEGOCIATION" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
-                                <kanBan:KanBanColumn Header="CLOSED WON" Id="CLOSED_WON" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
-                            </kanBan:KanBanControl.Columns>
+								<kanBan:KanBanColumn Header="CLOSED WON" Id="CLOSED_WON" HeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"/>
+							</kanBan:KanBanControl.Columns>
                         </kanBan:KanBanControl>
                     </ScrollViewer>
                 </ContentControl>
