@@ -29,7 +29,7 @@ namespace KanBan
         public void Execute(object parameter)
         {
             //Version using Drop event:
-            var param = parameter as DragEventArgs;
+            var param = parameter as System.Windows.DragEventArgs;
             if (param != null)
             {
                 var castedParameter = param.Data.GetData("ItemDragEventArgs") as ItemDragEventArgs;
