@@ -38,13 +38,14 @@ namespace KanBan
                 //      This way, it will be easier for the Developper to create a custom Style.
 
                 ContextMenu contextMenu = new ContextMenu();
-                object contextMenuStyle = null;
-                if (Application.Current.Resources.TryGetValue("MaterialDesign_ContextMenu_Style", out contextMenuStyle))
+                object contextMenuStyle = Application.Current.Resources["MaterialDesign_ContextMenu_Style"];
+
+                if (contextMenuStyle != null)
                 {
                     contextMenu.Style = (Style)contextMenuStyle;
                 }
-                object menuItemStyle = null;
-                bool isMenuItemStyleFound = Application.Current.Resources.TryGetValue("MaterialDesign_ContextMenuItem_Style", out menuItemStyle);
+                object menuItemStyle = Application.Current.Resources["MaterialDesign_ContextMenuItem_Style"];
+                bool isMenuItemStyleFound = menuItemStyle != null;
                 Style menuItemStyleAsStyle = menuItemStyle as Style;
 
                 //create and add the different menuItems

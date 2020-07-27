@@ -196,7 +196,8 @@ namespace KanBan
                     Binding binding = new Binding(ColumnMemberPath);
                     binding.Source = item;
                     binding.Mode = BindingMode.TwoWay;
-                    itemViewModel.SetBinding(ItemViewModel.ItemColumnIdProperty, binding);
+                    BindingOperations.SetBinding(itemViewModel, ItemViewModel.ItemColumnIdProperty, binding);
+                    //itemViewModel.SetBinding(ItemViewModel.ItemColumnIdProperty, binding);
                     id = itemViewModel.ItemColumnId;
                     //todo: handle the case where the Binding is broken.
 
@@ -204,7 +205,8 @@ namespace KanBan
                     Binding orderBinding = new Binding(OrderMemberPath);
                     orderBinding.Source = item;
                     orderBinding.Mode = BindingMode.TwoWay;
-                    itemViewModel.SetBinding(ItemViewModel.ItemOrderProperty, orderBinding);
+                    BindingOperations.SetBinding(itemViewModel, ItemViewModel.ItemOrderProperty, orderBinding);
+                    //itemViewModel.SetBinding(ItemViewModel.ItemOrderProperty, orderBinding);
 
                     //Add the item to the list for the corresponding id:
                     if (id != null && listFromId.ContainsKey(id))
