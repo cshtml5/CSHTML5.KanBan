@@ -147,25 +147,43 @@ namespace KanBanSampleApplication
                     RefreshFromRestServer();
                 });
             connection.Start();
-           
+
         }
 
         private void MakeCallToUpdateOtherClients()
-        {   
-            // Send the message: 
-            hub.Invoke("MakeCallToUpdateOtherClients");
+        {
+            try
+            {
+                // Send the message: 
+                hub.Invoke("MakeCallToUpdateOtherClients");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to send message via SignalR. Exception message: " + e.Message);
+            }
         }
 
 
         const string BaseUrl = "http://localhost:44314/";
         private async void RefreshFromRestServer()
         {
+            // Download the items from the server via REST:
+            var webClient = new WebClient();
+            webClient.Encoding = Encoding.UTF8;
+            webClient.Headers[HttpRequestHeader.Accept] = "application/xml";
+            string response = null;
             try
             {
-                var webClient = new WebClient();
-                webClient.Encoding = Encoding.UTF8;
-                webClient.Headers[HttpRequestHeader.Accept] = "application/xml";
-                string response = await webClient.DownloadStringTaskAsync(BaseUrl + "/api/ContractSalesItem");
+                response = await webClient.DownloadStringTaskAsync(BaseUrl + "/api/ContractSalesItem");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to upload item via REST. Exception message: " + e.Message);
+            }
+
+            // Update the KanBan:
+            if (response != null)
+            {
                 var dataContractSerializer = new DataContractSerializer(typeof(List<ContractSalesItem>));
                 List<ContractSalesItem> ContractSalesItems = (List<ContractSalesItem>)dataContractSerializer.DeserializeFromString(response);
                 if (ContractSalesItems.Count > 0)
@@ -174,67 +192,78 @@ namespace KanBanSampleApplication
                     MyKanBanControl.ItemsSource = _contractSalesitems;
                 }
             }
-            catch (WebException e)
-            {
-                MessageBox.Show("\nFailed to connect to the server!");
-                MessageBox.Show("Message :{0} ", e.Message);
-            }
         }
 
         private async void AddToRestServerContractSalesItem(ContractSalesItem contractSalesItem)
         {
+            string data = contractSalesItem.DataToString();
+
+            // Upload the item to the server via REST:
+            var webClient = new WebClient();
+            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+            webClient.Encoding = Encoding.UTF8;
             try
             {
-                string data = contractSalesItem.DataToString();
-                var webClient = new WebClient();
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                webClient.Encoding = Encoding.UTF8;
                 await webClient.UploadStringTaskAsync(BaseUrl + "/api/ContractSalesItem/", "POST", data);
-                MakeCallToUpdateOtherClients();
             }
-            catch (WebException e)
+            catch (Exception e)
             {
-                MessageBox.Show("\nFailed to connect to the server!");
-                MessageBox.Show("Message :{0} ", e.Message);
+                MessageBox.Show("Failed to upload item via REST. Exception message: " + e.Message);
+
+                return;
             }
+
+            // Send message via SignalR to update the other clients:
+            MakeCallToUpdateOtherClients();
         }
 
         private async void DeleteFromRestServerContractSalesItem(ContractSalesItem contractSalesItem)
         {
+            // Update the server via REST:
+            var webClient = new WebClient();
             try
             {
-                var webClient = new WebClient();
                 string response = await webClient.UploadStringTaskAsync(BaseUrl + "/api/ContractSalesItem/" + contractSalesItem.Id.ToString(), "DELETE", "");
-                MakeCallToUpdateOtherClients();
             }
-            catch (WebException e)
+            catch (Exception e)
             {
-                MessageBox.Show("\nFailed to connect to the server!");
-                MessageBox.Show("Message :{0} ", e.Message);
+                MessageBox.Show("Failed to upload item via REST. Exception message: " + e.Message);
+
+                return;
             }
-}
+
+            // Send message via SignalR to update the other clients:
+            MakeCallToUpdateOtherClients();
+        }
 
         private async void UpdateRestServerContractSalesItem(ContractSalesItem contractSalesItem)
         {
+            // Upload the item to the server via REST:
+            string data = contractSalesItem.DataToString();
+            var webClient = new WebClient();
+            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+            webClient.Encoding = Encoding.UTF8;
+            string response = null;
             try
             {
-                string data = contractSalesItem.DataToString();
-                var webClient = new WebClient();
-                webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-                webClient.Encoding = Encoding.UTF8;
-                string response = await webClient.UploadStringTaskAsync(BaseUrl + "/api/ContractSalesItem/" + contractSalesItem.Id.ToString(), "PUT", data);
+                response = await webClient.UploadStringTaskAsync(BaseUrl + "/api/ContractSalesItem/" + contractSalesItem.Id.ToString(), "PUT", data);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Failed to upload item via REST. Exception message: " + e.Message);
+            }
+
+            // Send message via SignalR to update the other clients:
+            if (response != null)
+            {
                 MakeCallToUpdateOtherClients();
             }
-            catch (WebException e)
-            {
-                MessageBox.Show("\nFailed to connect to the server!");
-                MessageBox.Show("Message :{0} ", e.Message);
-            }}
+        }
     }
 
     public class ContractSalesItem
     {
-        public ContractSalesItem() 
+        public ContractSalesItem()
         {
             Id = Guid.NewGuid();
         }
