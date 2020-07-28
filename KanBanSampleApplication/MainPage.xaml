@@ -97,7 +97,9 @@
                                               ItemTemplate="{StaticResource ItemDataTemplate}"
                                               ColumnMemberPath="StatusInSalesCycle" OrderMemberPath="Order"
                                               CanUserCreateModifyAndDeleteColumns="True" CanUserReorderColumns="True"
-                                              ItemClicked="KanBan_ItemClicked">
+                                              ItemClicked="KanBan_ItemClicked"
+                                              ItemMoved="KanBan_ItemMoved"
+                                              >
                             <!--Style="{StaticResource KanBanControlStyle}"-->
                             <!--ColumnHeaderTemplate="{StaticResource DefaultHeaderDataTemplate}"-->
 

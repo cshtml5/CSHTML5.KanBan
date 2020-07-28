@@ -101,6 +101,12 @@ namespace KanBanSampleApplication
             }
         }
 
+        private void KanBan_ItemMoved(object sender, ItemMovedEventArgs e)
+        {
+            var item = (ContractSalesItem)e.Source;
+            UpdateRestServerContractSalesItem(item);
+        }
+
         private void ChildWindowEditItem_Closed(object sender, EventArgs e)
         {
             ChildWindow childWindow = ((ChildWindow)sender);
