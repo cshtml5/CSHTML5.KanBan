@@ -32,7 +32,7 @@ namespace KanBanSampleApplication
             RefreshFromRestServer();
         }
 
-
+        /* // Commented out because the data is now downloaded from the server.
         List<ContractSalesItem> GetContractSalesItems()
         {
             List<ContractSalesItem> contractSalesitems = new List<ContractSalesItem>();
@@ -53,6 +53,7 @@ namespace KanBanSampleApplication
             contractSalesitems.Add(new ContractSalesItem("I don't know", "Some guy", 133, UNCLASSIFIED, 19, "This should only appear with the unclassified column"));
             return contractSalesitems;
         }
+        */
 
         private void ButtonCreateItem_Click(object sender, RoutedEventArgs e)
         {
