@@ -268,6 +268,22 @@ namespace KanBan
             }
         }
 
+        #endregion
+
+        #region ItemMoved event
+
+        /// <summary>
+        /// An event raised when an item is moved.
+        /// </summary>
+        public event EventHandler<ItemMovedEventArgs> ItemMoved;
+
+        internal void OnItemMoved(ItemViewModel itemViewModel)
+        {
+            if (ItemMoved != null)
+            {
+                ItemMoved(this, new ItemMovedEventArgs(itemViewModel.Item));
+            }
+        }
 
         #endregion
 

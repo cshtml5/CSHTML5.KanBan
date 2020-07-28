@@ -81,6 +81,9 @@ namespace KanBan
                         kanBanControl.Columns = null;
                         kanBanControl.Columns = columns;
 
+                        // Raise the "ItemMoved" event:
+                        kanBanControl.OnItemMoved(itemViewModel);
+
                         //keep the following to only refresh the column itself. It cannot be used properly currently as it causes a bug where the items are duplicated.
                         ////refresh the elements of the column:
                         //_column.Dispatcher.BeginInvoke( () =>
