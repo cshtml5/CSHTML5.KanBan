@@ -93,7 +93,7 @@ namespace KanBanSampleApplication
                 childWindow.Closed += ChildWindowEditItem_Closed;
                 childWindow.Show();
             }
-            else if(parameter == "DELETE")
+            else if (parameter == "DELETE")
             {
                 DeleteFromRestServerContractSalesItem((ContractSalesItem)e.Source);
                 _contractSalesitems.Remove(((ContractSalesItem)e.Source));
@@ -136,7 +136,7 @@ namespace KanBanSampleApplication
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
             // Specify the URL of the server:
             //string serverUri = new Uri(HtmlPage.Document.DocumentUri.ToString()).ToString();
             string serverUri = new Uri("http://localhost:44357/").ToString();
@@ -301,14 +301,14 @@ namespace KanBanSampleApplication
 
         public ContractSalesItem Clone()
         {
-            return new ContractSalesItem(CompanyName, PrimaryContact, ZenDeskTicketId, StatusInSalesCycle, Order, Comments) { CloneOf = this, Id = this.Id};
+            return new ContractSalesItem(CompanyName, PrimaryContact, ZenDeskTicketId, StatusInSalesCycle, Order, Comments) { CloneOf = this, Id = this.Id };
         }
 
         public string DataToString()
         {
             return string.Format(@"{{""CompanyName"": ""{0}"",""PrimaryContact"": ""{1}"", ""ZenDeskTicketId"": ""{2}"",""Comments"": ""{3}"",
                 ""StatusInSalesCycle"": ""{4}"",""Order"": ""{5}"",""Id"": ""{6}""}}",
-                CompanyName, PrimaryContact, ZenDeskTicketId, Comments, StatusInSalesCycle, Order,Id);
+                CompanyName, PrimaryContact, ZenDeskTicketId, Comments, StatusInSalesCycle, Order, Id);
         }
     }
 }
