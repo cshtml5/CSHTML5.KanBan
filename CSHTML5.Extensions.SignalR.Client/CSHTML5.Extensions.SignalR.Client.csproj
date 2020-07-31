@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConnectionState.cs" />
+    <Compile Include="EventArgs\ConnectionEventArgs.cs" />
     <Compile Include="HubConnection.cs" />
     <Compile Include="HubProxy.cs" />
     <Compile Include="HubProxyExtensions.cs" />
