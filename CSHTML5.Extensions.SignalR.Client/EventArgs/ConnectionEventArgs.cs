@@ -8,8 +8,5 @@ namespace CSHTML5.Extensions.SignalR.Client.EventArgs
 {
 	public class ConnectionEventArgs : System.EventArgs
 	{
-		internal ConnectionEventArgs()
-		{
-		}
 	}
 }
