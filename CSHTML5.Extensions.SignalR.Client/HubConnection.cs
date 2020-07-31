@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Browser;
+using CSHTML5.Extensions.SignalR.Client.EventArgs;
+using Windows.UI.Xaml;
 
 namespace CSHTML5.Extensions.SignalR.Client
 {
@@ -13,6 +16,74 @@ namespace CSHTML5.Extensions.SignalR.Client
         string _serverUri;
         object _hubConnection;
         static bool IsSignalRJavaScriptLibraryLoaded;
+        private ConnectionState _connectionState = ConnectionState.Disconnected;
+
+        public ConnectionState connectionState
+        {
+            get
+            {
+                return _connectionState;
+            }
+            set
+            {
+                _connectionState = value;
+
+                switch (connectionState)
+                {
+                    case ConnectionState.Connecting:
+                        if (ClientConnecting != null)
+                            ClientConnecting(this, new ConnectionEventArgs());
+                        break;
+
+                    case ConnectionState.Connected:
+                        if (ClientConnected != null)
+                            ClientConnected(this, new ConnectionEventArgs());
+                        break;
+
+                    case ConnectionState.Reconnecting:
+                        if (ClientReconnecting != null)
+                            ClientReconnecting(this, new ConnectionEventArgs());
+                        break;
+
+                    case ConnectionState.Disconnected:
+                        if (ClientDisconnected != null)
+                            ClientDisconnected(this, new ConnectionEventArgs());
+                        break;
+                }
+            }
+        }
+
+        #region ClientConnecting event
+
+        /// <summary>
+        /// An event raised when the client is connected to the server.
+        /// </summary>
+        public event EventHandler<ConnectionEventArgs> ClientConnecting;
+        #endregion
+
+        #region ClientConnected event
+
+        /// <summary>
+        /// An event raised when the client is connected to the server.
+        /// </summary>
+        public event EventHandler<ConnectionEventArgs> ClientConnected;
+        #endregion
+
+        #region ClientReconnecting event
+
+        /// <summary>
+        /// An event raised when the client failed to connect to the server.
+        /// </summary>
+        public event EventHandler<ConnectionEventArgs> ClientReconnecting;
+        #endregion
+
+        #region ClientDisconnected event
+
+        /// <summary>
+        /// An event raised when the client is disconnected from the server.
+        /// </summary>
+        public event EventHandler<ConnectionEventArgs> ClientDisconnected;
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the SignalR.Client.HubConnection
@@ -51,8 +122,24 @@ namespace CSHTML5.Extensions.SignalR.Client
             {
                 // We use the javascript library loaded in the 'EnsureLibraryIsLoaded' method:
                 _hubConnection = Interop.ExecuteJavaScript("signalRNoJQueryBundle.signalRNoJquery.hubConnection($0)", _serverUri);
+
+                Action<Object> OnStateChangedAction = OnStateChanged;
+
+                Interop.ExecuteJavaScript("$0.stateChanged(function(data) {($1)(data);})", _hubConnection, OnStateChangedAction);
             }
         }
+
+        private void OnStateChanged(Object data)
+        {
+            object newStateValueAsObject = Interop.ExecuteJavaScript(@"$0['newState']", data);
+
+            int newStateValue = int.Parse(newStateValueAsObject.ToString());
+
+           connectionState = (ConnectionState)newStateValue;
+
+            Debug.WriteLine(connectionState.ToString());
+        }
+
 
         /// <summary>
         /// Creates a SignalR IHubProxy for the hub with the specified name.

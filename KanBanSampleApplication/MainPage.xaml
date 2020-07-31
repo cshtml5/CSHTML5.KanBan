@@ -90,8 +90,11 @@
                         <TextBlock Text="Contract Sales Pipeline" VerticalAlignment="Center" Margin="20,0,0,0"/>
                         <Button Content="Create" Click="ButtonCreateItem_Click" Style="{StaticResource MaterialDesign_ColoredButton_Style}" VerticalAlignment="Center" Margin="40,0,0,0" Background="LimeGreen"/>
                     </StackPanel>
-                </ContentControl>
-                <ContentControl Grid.Row="1" Style="{StaticResource MaterialDesign_CardBody_Style}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0">
+
+				</ContentControl>
+				<TextBlock Grid.Row="0" x:Name="SignalRConnectionStatusText" Text="" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="20,0,0,0"/>
+
+				<ContentControl Grid.Row="1" Style="{StaticResource MaterialDesign_CardBody_Style}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0">
                     <ScrollViewer Padding="20" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
                         <kanBan:KanBanControl x:Name="MyKanBanControl"
                                               ItemTemplate="{StaticResource ItemDataTemplate}"

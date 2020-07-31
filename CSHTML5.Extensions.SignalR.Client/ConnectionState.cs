@@ -5,6 +5,6 @@
         Connecting = 0,
         Connected = 1,
         Reconnecting = 2,
-        Disconnected = 3,
+        Disconnected = 4,
     }
 }

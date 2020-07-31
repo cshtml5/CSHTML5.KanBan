@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using CSHTML5.Extensions.SignalR.Client;
+using CSHTML5.Extensions.SignalR.Client.EventArgs;
 
 using System.Linq;
 using System.Net;
@@ -136,6 +137,8 @@ namespace KanBanSampleApplication
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            SignalRConnectionStatusText.Text = "Connecting to SignalR...";
+
 
             // Specify the URL of the server:
             //string serverUri = new Uri(HtmlPage.Document.DocumentUri.ToString()).ToString();
@@ -152,8 +155,34 @@ namespace KanBanSampleApplication
                 {
                     RefreshFromRestServer();
                 });
+
+            connection.ClientConnecting += SignalRClientConnecting;
+            connection.ClientConnected += SignalRClientConnected;
+            connection.ClientReconnecting += SignalRClientReconnection;
+            connection.ClientDisconnected += SignalRClientDisconnected;
             connection.Start();
 
+
+        }
+
+        private void SignalRClientConnecting(object sender, ConnectionEventArgs e)
+        {
+            SignalRConnectionStatusText.Text = "Connecting to SignalR...";
+        }
+
+        private void SignalRClientConnected(object sender, ConnectionEventArgs e)
+        {
+            SignalRConnectionStatusText.Text = "Connected to SignalR";
+        }
+
+        private void SignalRClientReconnection(object sender, ConnectionEventArgs e)
+        {
+            SignalRConnectionStatusText.Text = "Connection to SignalR lost, Attempting to reconnect";
+        }
+
+        private void SignalRClientDisconnected(object sender, ConnectionEventArgs e)
+        {
+            SignalRConnectionStatusText.Text = "Disconnected from SignalR";
         }
 
         private void MakeCallToUpdateOtherClients()
@@ -184,7 +213,7 @@ namespace KanBanSampleApplication
             }
             catch (Exception e)
             {
-                MessageBox.Show("Failed to upload item via REST. Exception message: " + e.Message);
+                MessageBox.Show("Failed to download items from REST. Exception message: " + e.Message);
             }
 
             // Update the KanBan:
