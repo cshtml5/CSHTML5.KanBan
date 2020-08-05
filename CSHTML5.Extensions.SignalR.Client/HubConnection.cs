@@ -137,7 +137,7 @@ namespace CSHTML5.Extensions.SignalR.Client
 
            connectionState = (ConnectionState)newStateValue;
 
-            Debug.WriteLine(connectionState.ToString());
+            Debug.WriteLine("SignalR state: " + connectionState.ToString());
         }
 
 
